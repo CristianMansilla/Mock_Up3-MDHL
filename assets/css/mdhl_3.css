@@ -52,7 +52,7 @@ a:active{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 1em;
+    gap: 0.3em;
     padding-left: 0.5em;
     /* box-shadow: 0 0 3px 3px #1a1a1a */
 }
@@ -207,10 +207,14 @@ tr{
     /* text-shadow: 0 1px 1px rgba(256,256,256,0.1); */
 }
 
-tr:hover>td{
+td>a{
+    color: #666b85;
+}
+
+tr:hover>td,
+tr:hover>td>a{
     background-color: #4e5066;
     color: white;
-    /* border-top: 1px solid #22262e; */
 }
 
 tr:first-child{
@@ -267,6 +271,86 @@ td{
 
 .gi-contact>div>p{
     margin-bottom: 1em;
+}
+
+/* Maps */
+.modal{
+    position: fixed;
+    /* Para que ocupe toda la pantalla */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(51, 51, 51, 0.765);
+    display: flex;
+    
+    /* Custom Properties */
+    --opacity: 0;
+    --pointer: none;
+
+    /* Inicalmente no se ve */
+    opacity: var(--opacity);
+    pointer-events: var(--pointer);
+    transition: opacity .5s;
+}
+
+.modal:target{
+    --opacity: 1;
+    --pointer: unset;
+}
+/* nombreAnimacion - duración - retardo */
+.modal:target .modal-container{
+    animation: show 1s .5s backwards;
+}
+
+@keyframes show{
+    0%{
+        transform: translateY(-150vh);
+    }
+
+    /* Si se omite el 100% toma su valor original */
+    /* 100%{
+        transform: translateY(0);
+    } */
+}
+
+.modal-container{
+    margin: auto;
+    background-color: #fff;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90%;
+    overflow: hidden;
+    text-align: center;
+    padding: 2.5em 1.5em;
+    border-radius: 1em;
+}
+
+figure>iframe{
+    width: 100%;
+    height: 300px;
+    display: block;
+    margin-bottom: 1.5em;
+}
+
+/* Animación para que aparezca el mapa */
+.modal:target figure>iframe{
+    animation: scale .5s 1.5s backwards;
+}
+
+@keyframes scale{
+    0%{
+        transform: scale(0);
+    }
+}
+
+.modal-container>a{
+    display: inline-block;
+    background-color: #f23708;
+    color: white;
+    padding: 1em 2em;
+    border-radius: 0.4em;
+    cursor: pointer;
 }
 
 /** About MDHL **/
@@ -356,7 +440,8 @@ td{
 
 .lista-letras{
     list-style-type: lower-latin;
-    padding-left: 1em;
+    /* padding-left: 1em; */
+    list-style-position: inside;
 }
 
 .rules-card{
@@ -437,6 +522,289 @@ td{
 
 .contact p{
     font-size: 2em;
+}
+
+/** Registration **/
+input[type="radio"],
+input[type="checkbox"]{
+    cursor: pointer;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+}
+.registration{
+    width: 70%;
+    background-color: #1b1e24b9;
+    /* background: var(--violet); */
+    /* background: linear-gradient(90deg, rgba(143,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,216,69,1) 100%); */
+    box-shadow: 0 1em 1em rgba(0, 0, 0, 0.2);
+    color: white;
+    margin: 2em auto;
+    padding: 2em;
+    border-radius: 8px;
+}
+
+.registration>h2{
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.registration h3{
+    font-size: 0.95em;
+}
+
+.private-info{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.5em;
+    margin-bottom: 2em;
+}
+
+/* Para que no me muestre el warning en el comprobador de HTML */
+.private-info>h2{
+    display: none;
+}
+
+.private-info input{
+    flex-grow: 1;
+    margin-left: 0.4em;
+    border: none;
+    background-color: transparent;
+    border: 1.2px solid #35c7e4;
+    outline: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.private-info input:hover{
+    background-color:rgb(42, 52, 71);
+}
+
+/* display: flex, para que me permita aplicar flex-grow a los input */
+.name{
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+}
+
+.last-name{
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+}
+
+.address{
+    grid-column: 1/3;
+    grid-row: 2;
+    display: flex;
+}
+
+.city{
+    grid-column: 1;
+    grid-row: 3;
+    display: flex;
+}
+
+.zip-code{
+    grid-column: 2;
+    grid-row: 3;
+    display: flex;
+}
+
+.birthDate{
+    grid-column: 1;
+    grid-row: 4;
+    display: flex;
+}
+
+.birthDate input{
+    text-align: center;
+}
+
+.gender{
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.grade{
+    grid-column: 1/3;
+    grid-row: 5;
+}
+
+/* Selecciono el label "Pre-School" */
+.grade>label:nth-of-type(2){
+    margin-left: 0.4em;
+}
+
+.closest-school{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2em;
+}
+
+.closest-school>h3:first-child{
+    grid-column: 1/3;
+    grid-row: 1;
+    margin-bottom: 0.7em;
+}
+
+.closest-school>h3:nth-of-type(2){
+    grid-column: 1/3;
+    grid-row: 2;
+    margin-bottom: 0.7em;
+}
+
+.closest-school>select{
+    border: none;
+    background-color: transparent;
+    border: 1.2px solid #35c7e4;
+    outline: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    /* appearance: none; */
+}
+
+.closest-school>select>option{
+    background-color:#1b1e24bd;
+}
+
+.position-play{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2em;
+}
+
+.position-play>h3{
+    grid-column: 1/3;
+    grid-row: 1;
+    margin-bottom: 0.7em;
+}
+
+.column1-positionPlay{
+    grid-column: 1;
+    grid-row: 2;
+    display: grid;
+    justify-items: start;
+    grid-template-columns: 1em 1fr;
+    grid-auto-rows: minmax(1em, auto);
+    width: 60%;
+}
+
+.column2-positionPlay{
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    justify-items: start;
+    grid-template-columns: 1em 1fr;
+    grid-auto-rows: minmax(1em, auto);
+    width: 60%;
+    margin-left: -13em;
+}
+
+.uniform-size{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2em;
+}
+
+.uniform-size>h3{
+    grid-column: 1/3;
+    grid-row: 1;
+    margin-bottom: 0.7em;
+}
+
+.column1-uniformSize{
+    grid-column: 1;
+    grid-row: 2;
+    display: grid;
+    justify-items: start;
+    grid-template-columns: 1em 1fr;
+    width: 60%;
+}
+
+.column2-uniformSize{
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    justify-items: start;
+    grid-template-columns: 1em 1fr;
+    grid-auto-rows: minmax(1px, 1.2em);
+    width: 60%;
+    margin-left: -10.5em;
+}
+
+.permission-play>h3{
+    margin-bottom: 0.7em;
+}
+
+.permission-play>p{
+    text-align: justify;
+}
+
+.signature,
+.date{
+    margin-top: 1em;
+}
+
+.permission-play input{
+    flex-grow: 1;
+    margin-left: 0.4em;
+    border: none;
+    background-color: transparent;
+    border: 1.2px solid #35c7e4;
+    outline: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.permission-play input:hover{
+    background-color:rgb(42, 52, 71);
+}
+
+.signature input{
+    width: 28em;
+}
+
+.date input{
+    text-align: center;
+}
+
+/* Alinear boton al centro */
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.submit{
+    width: 12em;
+    margin: 0 auto;
+    margin-top: 1em;
+    padding: 0.6em;
+    border: none;
+    border-radius: 8px;
+    background-color: #1547aa;
+    border: 1px solid #1547aa;
+    color: white;
+    cursor: pointer;
+}
+
+.submit:hover{
+    background-color: #345495c4;
+}
+
+.submit:active{
+    background-color: #35c7e4;
+}
+
+/* Custom del icono de calendario en el input de tipo date */
+::-webkit-calendar-picker-indicator{
+    background-color: rgba(255, 255, 255, 0.886);
+    border-radius: 5px;
+    cursor: pointer;
 }
 /*? Fin Main */
 
