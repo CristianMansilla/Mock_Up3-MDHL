@@ -217,6 +217,10 @@ tr:hover>td>a{
     color: white;
 }
 
+tr>td>a{
+    color: #ea732e;
+}
+
 tr:first-child{
     border-top: none;
 }
